@@ -21,14 +21,13 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
     public ObservableField<String> password = new ObservableField<>("");
 
 
-    public String updateLabel(Calendar myCalendar) {
+    public void updateLabel(Calendar myCalendar) {
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
-        return sdf.format(myCalendar.getTime());
+        date.set(sdf.format(myCalendar.getTime()));
     }
 
-    public void submitRegistration(){
+    public void submitRegistration() {
         RegistrationRequest registrationRequest = new RegistrationRequest();
         registrationRequest.setName(name.get());
         registrationRequest.setEmailid(email.get());
@@ -67,6 +66,7 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
         this.name.set(name);
         this.name.notifyPropertyChanged(BR.name);
     }
+
     @Bindable
     public String getPhone() {
         return phNo.get();
@@ -90,28 +90,27 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
 
     @Override
     public void addOnPropertyChangedCallback(OnPropertyChangedCallback callback) {
-        name.addOnPropertyChangedCallback(passwordProperyChangeCallbak);
-        password.addOnPropertyChangedCallback(passwordProperyChangeCallbak);
-
-        email.addOnPropertyChangedCallback(passwordProperyChangeCallbak);
-        phNo.addOnPropertyChangedCallback(passwordProperyChangeCallbak);
-        date.addOnPropertyChangedCallback(passwordProperyChangeCallbak);
+        name.addOnPropertyChangedCallback(propertyChangedCallback);
+        password.addOnPropertyChangedCallback(propertyChangedCallback);
+        email.addOnPropertyChangedCallback(propertyChangedCallback);
+        phNo.addOnPropertyChangedCallback(propertyChangedCallback);
+        date.addOnPropertyChangedCallback(propertyChangedCallback);
     }
 
     @Override
     public void removeOnPropertyChangedCallback(OnPropertyChangedCallback callback) {
-        password.removeOnPropertyChangedCallback(passwordProperyChangeCallbak);
-        name.removeOnPropertyChangedCallback(passwordProperyChangeCallbak);
-        email.removeOnPropertyChangedCallback(passwordProperyChangeCallbak);
-        phNo.removeOnPropertyChangedCallback(passwordProperyChangeCallbak);
-        date.removeOnPropertyChangedCallback(passwordProperyChangeCallbak);
+        password.removeOnPropertyChangedCallback(propertyChangedCallback);
+        name.removeOnPropertyChangedCallback(propertyChangedCallback);
+        email.removeOnPropertyChangedCallback(propertyChangedCallback);
+        phNo.removeOnPropertyChangedCallback(propertyChangedCallback);
+        date.removeOnPropertyChangedCallback(propertyChangedCallback);
 
     }
 
-    private OnPropertyChangedCallback passwordProperyChangeCallbak = new OnPropertyChangedCallback() {
+    private OnPropertyChangedCallback propertyChangedCallback = new OnPropertyChangedCallback() {
         @Override
         public void onPropertyChanged(Observable sender, int propertyId) {
-//            password.set(sender.toString());
         }
     };
+
 }

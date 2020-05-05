@@ -11,7 +11,7 @@
 
         <variable
             name="callback"
-            type="com.example.vyapaar.ui.contract.RegistrationContract" />
+            type="com.example.vyapaar.ui.contract.LoginContract" />
 
     </data>
 
@@ -21,7 +21,7 @@
         android:layout_margin="@dimen/parent_margin"
         tools:context=".ui.main.AdminLoginFragment">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/login_header" />
 
-        <EditText
+        <com.example.vyapaar.ui.views.CustomEditText
             android:id="@+id/edittext_email"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -43,7 +43,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_header" />
 
-        <EditText
+        <com.example.vyapaar.ui.views.CustomEditText
             android:id="@+id/editext_password"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -56,7 +56,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edittext_email" />
 
-        <CheckBox
+        <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/checkbox_terms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editext_password" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/checkbox_terms" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_forgot_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,11 +88,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_submit" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/registration_top_margin"
             android:text="@string/new_membership"
+            android:onClick="@{() -> callback.launchRegistrationFragment()}"
             android:textColor="@color/colorLink"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
