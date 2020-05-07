@@ -2,6 +2,7 @@ package com.example.vyapaar.ui.main;
 
 import com.example.vyapaar.BR;
 import com.example.vyapaar.ui.model.RegistrationRequest;
+import com.example.vyapaar.ui.model.RegistrationResponse;
 import com.example.vyapaar.ui.network.RegistrationRetrofitManager;
 
 import java.text.SimpleDateFormat;
@@ -12,6 +13,7 @@ import androidx.databinding.Bindable;
 import androidx.databinding.Observable;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
+import rx.Subscriber;
 
 public class AdminRegistrationViewModel extends ViewModel implements Observable {
     public ObservableField<String> date = new ObservableField<>("");
@@ -19,6 +21,7 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
     public ObservableField<String> email = new ObservableField<>("");
     public ObservableField<String> phNo = new ObservableField<>("");
     public ObservableField<String> password = new ObservableField<>("");
+    private Subscriber<RegistrationResponse> registrationRequestSubscriber;
 
 
     public void updateLabel(Calendar myCalendar) {
@@ -34,8 +37,29 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
         registrationRequest.setPhNo(phNo.get());
         registrationRequest.setPwd(password.get());
         registrationRequest.setDob(date.get());
-        RegistrationRetrofitManager.postRegistrationData(registrationRequest);
+        RegistrationRetrofitManager.postRegistrationData(registrationRequest, registrationRequestSubscriber());
     }
+
+    private Subscriber<RegistrationResponse> registrationRequestSubscriber() {
+        registrationRequestSubscriber = new Subscriber<RegistrationResponse>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(RegistrationResponse registrationResponse) {
+
+            }
+        };
+        return registrationRequestSubscriber;
+    }
+
 
     @Bindable
     public String getPassword() {
