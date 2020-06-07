@@ -16,6 +16,5 @@ import retrofit2.http.Part;
 public interface RegistrationServiceInterface {
 
     @POST("/api/v1/cust/register")
-    @Multipart
-    Observable<RegistrationResponse> postUserData(@Part RequestBody params);
+    Observable<RegistrationResponse> postUserData(@Body RequestBody params);
 }

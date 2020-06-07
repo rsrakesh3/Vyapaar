@@ -15,6 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import rx.Subscriber;
 
@@ -22,7 +23,9 @@ public class RegistrationRetrofitManager extends RetrofitManager {
 
     public static Observable<RegistrationResponse> postRegistrationData(RegistrationRequest registrationRequest, Subscriber<RegistrationResponse> registrationResponseSubscriber) {
         String formData = new Gson().toJson(registrationRequest);
-        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), formData);
+
+        RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("data",formData).build();
         Observable<RegistrationResponse> responseObservable = null;
         RegistrationServiceInterface registrationServiceInterface = RetrofitManager.getRetrofitInstance().
                 create(RegistrationServiceInterface.class);
