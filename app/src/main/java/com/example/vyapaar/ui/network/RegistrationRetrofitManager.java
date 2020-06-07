@@ -14,18 +14,19 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import rx.Subscriber;
 
 public class RegistrationRetrofitManager extends RetrofitManager {
 
     public static Observable<RegistrationResponse> postRegistrationData(RegistrationRequest registrationRequest, Subscriber<RegistrationResponse> registrationResponseSubscriber) {
         String formData = new Gson().toJson(registrationRequest);
-        HashMap<String,String> params = new HashMap<String, String>();
-        params.put("data", formData);
+        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), formData);
         Observable<RegistrationResponse> responseObservable = null;
         RegistrationServiceInterface registrationServiceInterface = RetrofitManager.getRetrofitInstance().
                 create(RegistrationServiceInterface.class);
-        responseObservable = registrationServiceInterface.postUserData(params);
+        responseObservable = registrationServiceInterface.postUserData(body);
         responseObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<RegistrationResponse>() {
