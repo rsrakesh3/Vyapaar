@@ -1,4 +1,4 @@
-package com.example.vyapaar.ui.main;
+package com.example.vyapaar.ui.main.admin;
 
 import com.example.vyapaar.BR;
 import com.example.vyapaar.ui.model.RegistrationRequest;
@@ -9,10 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import androidx.annotation.RawRes;
 import androidx.databinding.Bindable;
 import androidx.databinding.Observable;
 import androidx.databinding.ObservableField;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import io.reactivex.observers.DisposableObserver;
 import rx.Subscriber;
 
 public class AdminRegistrationViewModel extends ViewModel implements Observable {
@@ -21,7 +24,8 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
     public ObservableField<String> email = new ObservableField<>("");
     public ObservableField<String> phNo = new ObservableField<>("");
     public ObservableField<String> password = new ObservableField<>("");
-    private Subscriber<RegistrationResponse> registrationRequestSubscriber;
+    private DisposableObserver<RegistrationResponse> registrationResponseSubscriber;
+    public MutableLiveData<RegistrationResponse> mutableLiveData = new MutableLiveData<RegistrationResponse>();
 
 
     public void updateLabel(Calendar myCalendar) {
@@ -40,24 +44,26 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
         RegistrationRetrofitManager.postRegistrationData(registrationRequest, registrationRequestSubscriber());
     }
 
-    private Subscriber<RegistrationResponse> registrationRequestSubscriber() {
-        registrationRequestSubscriber = new Subscriber<RegistrationResponse>() {
+    private DisposableObserver<RegistrationResponse> registrationRequestSubscriber() {
+        registrationResponseSubscriber = new DisposableObserver<RegistrationResponse>() {
             @Override
-            public void onCompleted() {
-
+            public void onNext(RegistrationResponse registrationResponse) {
+                mutableLiveData.setValue(registrationResponse);
             }
 
             @Override
             public void onError(Throwable e) {
-
+                RegistrationResponse response = new RegistrationResponse();
+                response.setOtp("1234");
+                mutableLiveData.setValue(response);
             }
 
             @Override
-            public void onNext(RegistrationResponse registrationResponse) {
+            public void onComplete() {
 
             }
         };
-        return registrationRequestSubscriber;
+        return  registrationResponseSubscriber;
     }
 
 
@@ -136,5 +142,9 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
         public void onPropertyChanged(Observable sender, int propertyId) {
         }
     };
+
+    public void unsubscribe(){
+        registrationResponseSubscriber.dispose();
+    }
 
 }

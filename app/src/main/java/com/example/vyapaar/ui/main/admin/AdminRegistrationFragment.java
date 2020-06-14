@@ -1,6 +1,7 @@
-package com.example.vyapaar.ui.main;
+package com.example.vyapaar.ui.main.admin;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.DatePickerDialog;
@@ -17,9 +18,9 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 
 import com.example.vyapaar.R;
-import com.example.vyapaar.databinding.AdminLoginFragmentBinding;
 import com.example.vyapaar.databinding.AdminRegistrationFragmentBinding;
 import com.example.vyapaar.ui.contract.RegistrationContract;
+import com.example.vyapaar.ui.model.RegistrationResponse;
 
 import java.util.Calendar;
 
@@ -37,6 +38,19 @@ public class AdminRegistrationFragment extends Fragment implements RegistrationC
         callback = contract;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel.mutableLiveData.observe(getViewLifecycleOwner(), new Observer<RegistrationResponse>() {
+            @Override
+            public void onChanged(RegistrationResponse registrationResponse) {
+                if(registrationResponse.getOtp()!=null){
+                    launchOTPFragment(registrationResponse);
+                }
+            }
+        });
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -47,6 +61,12 @@ public class AdminRegistrationFragment extends Fragment implements RegistrationC
         binding.setViewModel(mViewModel);
         binding.setCallback(callback);
         return view;
+    }
+
+    private void launchOTPFragment(RegistrationResponse registrationResponse) {
+        OTPFragment otpFragment = OTPFragment.newInstance(registrationResponse);
+        otpFragment.setCancelable(false);
+        otpFragment.show(((MainActivity) mContext).getSupportFragmentManager(), "otp_dialog");
     }
 
     @Override
@@ -78,6 +98,8 @@ public class AdminRegistrationFragment extends Fragment implements RegistrationC
                 .commitNow();
     }
 
+
+
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -92,4 +114,12 @@ public class AdminRegistrationFragment extends Fragment implements RegistrationC
 
     };
 
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mViewModel!=null) {
+            mViewModel.unsubscribe();
+        }
+    }
 }

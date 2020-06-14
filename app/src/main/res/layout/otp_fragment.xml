@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.vyapaar.ui.main.admin.OTPViewModel" />
+
+        <variable
+            name="callback"
+            type="com.example.vyapaar.ui.contract.OTPContract" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:padding="24dp"
+    android:background="#ECF0F1"
+    tools:context=".ui.main.admin.OTPFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/otp_verification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/otp_verification"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/otp_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_otp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/otp_verification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edittext1"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_edittext"
+        android:maxLength="1"
+        android:gravity="center"
+        android:text="@{viewModel.pin1}"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="@+id/otp_header"
+        app:layout_constraintTop_toBottomOf="@+id/otp_header" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edittext2"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="@{viewModel.pin2}"
+        android:background="@drawable/rounded_edittext"
+        android:maxLength="1"
+        app:layout_constraintStart_toEndOf="@+id/edittext1"
+        app:layout_constraintTop_toBottomOf="@+id/otp_header" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edittext3"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="@{viewModel.pin3}"
+        android:background="@drawable/rounded_edittext"
+        android:maxLength="1"
+        app:layout_constraintStart_toEndOf="@id/edittext2"
+        app:layout_constraintTop_toBottomOf="@+id/otp_header" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edittext4"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="@{viewModel.pin4}"
+        android:background="@drawable/rounded_edittext"
+        android:maxLength="1"
+        app:layout_constraintStart_toEndOf="@id/edittext3"
+        app:layout_constraintTop_toBottomOf="@+id/otp_header" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_verify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/verify_otp"
+        android:onClick="@{() ->viewModel.verifyBtnClick(callback)}"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/common_button"
+        app:layout_constraintTop_toBottomOf="@id/edittext4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,4 +1,4 @@
-package com.example.vyapaar.ui.main;
+package com.example.vyapaar.ui.main.admin;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity implements RegistrationContract, LoginContract {
     final Calendar myCalendar = Calendar.getInstance();
@@ -52,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements RegistrationContr
 
     @Override
     public void launchLoginFragment() {
-
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, AdminLoginFragment.newInstance())
                 .commit();

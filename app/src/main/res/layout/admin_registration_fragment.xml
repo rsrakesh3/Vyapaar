@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.vyapaar.ui.main.AdminRegistrationViewModel" />
+            type="com.example.vyapaar.ui.main.admin.AdminRegistrationViewModel" />
         <variable
             name="callback"
             type="com.example.vyapaar.ui.contract.RegistrationContract" />
@@ -20,7 +20,7 @@
         android:layout_margin="@dimen/parent_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.AdminRegistrationFragment">
+        tools:context=".ui.main.admin.AdminRegistrationFragment">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_header"

@@ -1,6 +1,5 @@
-package com.example.vyapaar.ui.main;
+package com.example.vyapaar.ui.main.admin;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -18,7 +17,6 @@ import android.view.ViewGroup;
 import com.example.vyapaar.R;
 import com.example.vyapaar.databinding.AdminLoginFragmentBinding;
 import com.example.vyapaar.ui.contract.LoginContract;
-import com.example.vyapaar.ui.contract.RegistrationContract;
 
 public class AdminLoginFragment extends Fragment {
 
@@ -49,5 +47,11 @@ public class AdminLoginFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mViewModel.unsubscribe();
     }
 }

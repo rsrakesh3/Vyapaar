@@ -13,6 +13,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -21,7 +22,7 @@ import rx.Subscriber;
 
 public class RegistrationRetrofitManager extends RetrofitManager {
 
-    public static Observable<RegistrationResponse> postRegistrationData(RegistrationRequest registrationRequest, Subscriber<RegistrationResponse> registrationResponseSubscriber) {
+    public static Observable<RegistrationResponse> postRegistrationData(RegistrationRequest registrationRequest, DisposableObserver<RegistrationResponse> registrationResponseSubscriber) {
         String formData = new Gson().toJson(registrationRequest);
 
         RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -31,28 +32,7 @@ public class RegistrationRetrofitManager extends RetrofitManager {
                 create(RegistrationServiceInterface.class);
         responseObservable = registrationServiceInterface.postUserData(body);
         responseObservable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<RegistrationResponse>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(RegistrationResponse registrationResponse) {
-                        Log.i("--Rakesh---","SUCCESS");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.i("--Rakesh---","ERROR");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(registrationResponseSubscriber);
         return responseObservable;
     }
 
