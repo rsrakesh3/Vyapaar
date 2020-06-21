@@ -11,6 +11,10 @@
         <variable
             name="callback"
             type="com.example.vyapaar.ui.contract.OTPContract" />
+
+        <variable
+            name="clickListener"
+            type="com.example.vyapaar.ui.main.admin.OTPFragment.VerifyButtonListener" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="wrap_content"
@@ -26,6 +30,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:onClick="@{() -> viewModel.verifyBtnClick(callback)}"
         android:text="@string/otp_verification"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -100,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/verify_otp"
-        android:onClick="@{() ->viewModel.verifyBtnClick(callback)}"
+        android:onClick="@{() -> clickListener.onVerifyClick()}"
         android:textColor="@color/colorWhite"
         android:background="@drawable/common_button"
         app:layout_constraintTop_toBottomOf="@id/edittext4"

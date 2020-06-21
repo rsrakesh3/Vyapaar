@@ -1,11 +1,17 @@
 package com.example.vyapaar.ui.main.admin;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,17 +24,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vyapaar.R;
+import com.example.vyapaar.dashboard.DashboardActivity;
 import com.example.vyapaar.databinding.OtpFragmentBinding;
 import com.example.vyapaar.ui.contract.OTPContract;
 import com.example.vyapaar.ui.model.RegistrationResponse;
 
-public class OTPFragment extends DialogFragment implements OTPContract {
+public class OTPFragment extends AppCompatDialogFragment implements OTPContract {
 
     private OTPViewModel mViewModel;
     private EditText editText1, editText2, editText3, editText4;
+    private TextView textView;
     private static RegistrationResponse mResponse;
     private OTPContract otpContract;
     private Context mContext;
@@ -39,16 +48,24 @@ public class OTPFragment extends DialogFragment implements OTPContract {
         return new OTPFragment();
     }
 
+    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.otp_fragment, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        View view = getActivity().getLayoutInflater().inflate(R.layout.otp_fragment, null,false);
         OtpFragmentBinding binding = DataBindingUtil.bind(view);
         binding.setViewModel(mViewModel);
-        binding.setLifecycleOwner(this);
-        binding.setCallback(this);
+        binding.setClickListener(new VerifyButtonListener() {
+            @Override
+            public void onVerifyClick() {
+                if(getOTP().equalsIgnoreCase("1234")) {
+                    Toast.makeText(mContext, "Success", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent((MainActivity)mContext, DashboardActivity.class));
+                }
+            }
+        });
         initView(view);
-        return view;
+        return binding.getRoot();
     }
 
     private void initView(View view) {
@@ -58,12 +75,6 @@ public class OTPFragment extends DialogFragment implements OTPContract {
         editText3 = view.findViewById(R.id.edittext3);
         editText4 = view.findViewById(R.id.edittext4);
         verifyBtn = view.findViewById(R.id.btn_verify);
-        verifyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, "Success",Toast.LENGTH_LONG).show();
-            }
-        });
         editText1.addTextChangedListener(new GenericTextWatcher(editText1));
         editText2.addTextChangedListener(new GenericTextWatcher(editText2));
         editText3.addTextChangedListener(new GenericTextWatcher(editText3));
@@ -77,10 +88,17 @@ public class OTPFragment extends DialogFragment implements OTPContract {
 
     }
 
+    public String getOTP(){
+        StringBuilder builder = new StringBuilder(editText1.getText().toString()+editText2.getText().toString()+editText3.getText().toString()+editText4.getText().toString());
+        return builder.toString();
+    }
+
     @Override
     public void handleOTPSuccess(String s) {
         if(mResponse.getOtp().equalsIgnoreCase(s)){
-            Toast.makeText(mContext, "Success",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent((MainActivity)mContext, DashboardActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
     }
 
@@ -149,6 +167,10 @@ public class OTPFragment extends DialogFragment implements OTPContract {
             // TODO Auto-generated method stub
         }
 
+    }
+
+    public interface VerifyButtonListener{
+        void onVerifyClick();
     }
 
 }
