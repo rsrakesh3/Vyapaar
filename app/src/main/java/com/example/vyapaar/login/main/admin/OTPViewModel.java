@@ -1,6 +1,6 @@
-package com.example.vyapaar.ui.main.admin;
+package com.example.vyapaar.login.main.admin;
 
-import com.example.vyapaar.ui.contract.OTPContract;
+import com.example.vyapaar.login.contract.OTPContract;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;

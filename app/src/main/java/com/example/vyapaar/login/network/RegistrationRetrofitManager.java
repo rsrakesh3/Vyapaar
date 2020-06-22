@@ -1,24 +1,16 @@
-package com.example.vyapaar.ui.network;
+package com.example.vyapaar.login.network;
 
 
-import android.util.Log;
-
-import com.example.vyapaar.ui.model.RegistrationRequest;
-import com.example.vyapaar.ui.model.RegistrationResponse;
+import com.example.vyapaar.login.model.RegistrationRequest;
+import com.example.vyapaar.login.model.RegistrationResponse;
 import com.google.gson.Gson;
 
-import java.util.HashMap;
-
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import rx.Subscriber;
 
 public class RegistrationRetrofitManager extends RetrofitManager {
 

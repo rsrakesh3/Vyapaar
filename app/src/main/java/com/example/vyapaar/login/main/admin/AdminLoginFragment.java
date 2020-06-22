@@ -1,4 +1,4 @@
-package com.example.vyapaar.ui.main.admin;
+package com.example.vyapaar.login.main.admin;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 
 import com.example.vyapaar.R;
 import com.example.vyapaar.databinding.AdminLoginFragmentBinding;
-import com.example.vyapaar.ui.contract.LoginContract;
+import com.example.vyapaar.login.contract.LoginContract;
 
 public class AdminLoginFragment extends Fragment {
 

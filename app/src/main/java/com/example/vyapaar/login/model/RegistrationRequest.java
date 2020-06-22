@@ -1,4 +1,4 @@
-package com.example.vyapaar.ui.model;
+package com.example.vyapaar.login.model;
 
 public class RegistrationRequest {
 

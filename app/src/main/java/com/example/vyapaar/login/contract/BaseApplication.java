@@ -1,4 +1,4 @@
-package com.example.vyapaar.ui.contract;
+package com.example.vyapaar.login.contract;
 
 import android.app.Application;
 

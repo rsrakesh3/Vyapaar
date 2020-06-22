@@ -1,22 +1,21 @@
-package com.example.vyapaar.ui.main.admin;
+package com.example.vyapaar.login.main.admin;
 
 import com.example.vyapaar.BR;
-import com.example.vyapaar.ui.model.RegistrationRequest;
-import com.example.vyapaar.ui.model.RegistrationResponse;
-import com.example.vyapaar.ui.network.RegistrationRetrofitManager;
+import com.example.vyapaar.login.model.RegistrationRequest;
+import com.example.vyapaar.login.model.RegistrationResponse;
+import com.example.vyapaar.login.network.RegistrationRetrofitManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import androidx.annotation.RawRes;
 import androidx.databinding.Bindable;
 import androidx.databinding.Observable;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.observers.DisposableObserver;
-import rx.Subscriber;
 
 public class AdminRegistrationViewModel extends ViewModel implements Observable {
     public ObservableField<String> date = new ObservableField<>("");
@@ -26,6 +25,7 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
     public ObservableField<String> password = new ObservableField<>("");
     private DisposableObserver<RegistrationResponse> registrationResponseSubscriber;
     public MutableLiveData<RegistrationResponse> mutableLiveData = new MutableLiveData<RegistrationResponse>();
+    public ObservableBoolean isLoaderShown = new ObservableBoolean(false);
 
 
     public void updateLabel(Calendar myCalendar) {
@@ -35,6 +35,7 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
     }
 
     public void submitRegistration() {
+        isLoaderShown.set(true);
         RegistrationRequest registrationRequest = new RegistrationRequest();
         registrationRequest.setName(name.get());
         registrationRequest.setEmailid(email.get());
@@ -48,11 +49,13 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
         registrationResponseSubscriber = new DisposableObserver<RegistrationResponse>() {
             @Override
             public void onNext(RegistrationResponse registrationResponse) {
+                isLoaderShown.set(false);
                 mutableLiveData.setValue(registrationResponse);
             }
 
             @Override
             public void onError(Throwable e) {
+                isLoaderShown.set(false);
                 RegistrationResponse response = new RegistrationResponse();
                 response.setOtp("1234");
                 mutableLiveData.setValue(response);

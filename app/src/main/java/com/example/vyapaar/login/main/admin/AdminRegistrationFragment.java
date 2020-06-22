@@ -1,6 +1,7 @@
-package com.example.vyapaar.ui.main.admin;
+package com.example.vyapaar.login.main.admin;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.Observable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -19,12 +20,12 @@ import android.widget.DatePicker;
 
 import com.example.vyapaar.R;
 import com.example.vyapaar.databinding.AdminRegistrationFragmentBinding;
-import com.example.vyapaar.ui.contract.RegistrationContract;
-import com.example.vyapaar.ui.model.RegistrationResponse;
+import com.example.vyapaar.login.contract.RegistrationContract;
+import com.example.vyapaar.login.model.RegistrationResponse;
 
 import java.util.Calendar;
 
-public class AdminRegistrationFragment extends Fragment implements RegistrationContract {
+public class AdminRegistrationFragment extends Fragment {
     final Calendar myCalendar = Calendar.getInstance();
     private AdminRegistrationViewModel mViewModel;
     private RegistrationContract callback;
@@ -45,7 +46,7 @@ public class AdminRegistrationFragment extends Fragment implements RegistrationC
             @Override
             public void onChanged(RegistrationResponse registrationResponse) {
                 if(registrationResponse.getOtp()!=null){
-                    launchOTPFragment(registrationResponse);
+                    callback.launchOTPFragment(registrationResponse);
                 }
             }
         });
@@ -57,16 +58,20 @@ public class AdminRegistrationFragment extends Fragment implements RegistrationC
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.admin_registration_fragment, container, false);
         mViewModel = ViewModelProviders.of(this).get(AdminRegistrationViewModel.class);
+        mViewModel.isLoaderShown.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                if(mViewModel.isLoaderShown.get()){
+                    callback.showLoader();
+                }else{
+                    callback.hideLoader();
+                }
+            }
+        });
         AdminRegistrationFragmentBinding binding = DataBindingUtil.bind(view);
         binding.setViewModel(mViewModel);
         binding.setCallback(callback);
         return view;
-    }
-
-    private void launchOTPFragment(RegistrationResponse registrationResponse) {
-        OTPFragment otpFragment = OTPFragment.newInstance(registrationResponse);
-        otpFragment.setCancelable(false);
-        otpFragment.show(((MainActivity) mContext).getSupportFragmentManager(), "otp_dialog");
     }
 
     @Override
@@ -81,24 +86,9 @@ public class AdminRegistrationFragment extends Fragment implements RegistrationC
         callback = null;
     }
 
-    @Override
-    public void openDatePicker() {
-        new DatePickerDialog(mContext, date, myCalendar
-                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-    }
-     public AdminRegistrationViewModel getmViewModel(){
+    public AdminRegistrationViewModel getmViewModel(){
             return mViewModel;
     }
-
-    @Override
-    public void launchLoginFragment() {
-        ((MainActivity) mContext).getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, AdminLoginFragment.newInstance())
-                .commitNow();
-    }
-
-
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 

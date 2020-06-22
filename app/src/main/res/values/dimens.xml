@@ -3,5 +3,5 @@
     <dimen name="parent_margin">16dp</dimen>
     <dimen name="registration_top_margin">12dp</dimen>
     <dimen name="text_margin">16dp</dimen>
-    <dimen name="loader_animation">96dp</dimen>
+    <dimen name="loader_animation">192dp</dimen>
 </resources>

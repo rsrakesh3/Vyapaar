@@ -1,7 +1,7 @@
 package com.example.vyapaar.dashboard.network;
 
 import com.example.vyapaar.dashboard.model.DashboardResponse;
-import com.example.vyapaar.ui.network.RetrofitManager;
+import com.example.vyapaar.login.network.RetrofitManager;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;

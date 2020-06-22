@@ -3,12 +3,10 @@ package com.example.vyapaar.dashboard.ui.dashboard;
 import com.example.vyapaar.dashboard.adapter.DashboardItemRecyclerViewAdapter;
 import com.example.vyapaar.dashboard.model.DashboardResponse;
 import com.example.vyapaar.dashboard.network.DashboardRetrofitManager;
-import com.example.vyapaar.ui.model.RegistrationResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.databinding.Bindable;
 import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

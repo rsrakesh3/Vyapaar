@@ -1,13 +1,10 @@
-package com.example.vyapaar.ui.main.admin;
+package com.example.vyapaar.login.main.admin;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,7 +19,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,8 +26,8 @@ import android.widget.Toast;
 import com.example.vyapaar.R;
 import com.example.vyapaar.dashboard.DashboardActivity;
 import com.example.vyapaar.databinding.OtpFragmentBinding;
-import com.example.vyapaar.ui.contract.OTPContract;
-import com.example.vyapaar.ui.model.RegistrationResponse;
+import com.example.vyapaar.login.contract.OTPContract;
+import com.example.vyapaar.login.model.RegistrationResponse;
 
 public class OTPFragment extends AppCompatDialogFragment implements OTPContract {
 

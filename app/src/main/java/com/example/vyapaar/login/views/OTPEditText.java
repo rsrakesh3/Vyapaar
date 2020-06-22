@@ -1,12 +1,7 @@
-package com.example.vyapaar.ui.views;
+package com.example.vyapaar.login.views;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.View;
-
-import com.example.vyapaar.R;
 
 import androidx.appcompat.widget.AppCompatEditText;
 

@@ -1,17 +1,11 @@
-package com.example.vyapaar.ui.network;
+package com.example.vyapaar.login.network;
 
-import com.example.vyapaar.ui.model.RegistrationResponse;
-
-import java.util.HashMap;
+import com.example.vyapaar.login.model.RegistrationResponse;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 
 public interface RegistrationServiceInterface {
 

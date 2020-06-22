@@ -11,11 +11,12 @@ import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.vyapaar.R;
+import com.example.vyapaar.common.BaseActivity;
 import com.example.vyapaar.dashboard.contract.BaseContract;
 import com.example.vyapaar.dashboard.ui.dashboard.DashboardItemFragment;
 import com.example.vyapaar.dashboard.ui.dashboard.dummy.DummyContent;
 
-public class DashboardActivity extends AppCompatActivity implements DashboardItemFragment.OnListFragmentInteractionListener, BaseContract {
+public class DashboardActivity extends BaseActivity implements DashboardItemFragment.OnListFragmentInteractionListener, BaseContract {
 
     private LottieAnimationView mLoaderAnimation;
     private View mPageLevelLoaderView;
@@ -45,33 +46,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardIte
 
     @Override
     public void onBackPressed() {
-        if(allowBackPress){
-            super.onBackPressed();
-        }else{
 
-        }
-    }
-
-    protected void setUpLoaderViews() {
-        if (mPageLevelLoaderView == null || mLoaderAnimation == null) {
-            mPageLevelLoaderView = findViewById(R.id.page_level_loader_view);
-            if (mPageLevelLoaderView != null)
-                mPageLevelLoadingTextView = mPageLevelLoaderView.findViewById(R.id.loading_text_view);
-            mLoaderAnimation = findViewById(R.id.page_level_progress_bar);
-        }
-    }
-
-
-    public void startAnimation(){
-        allowBackPress = false;
-        mLoaderAnimation.playAnimation();
-        mPageLevelLoaderView.setVisibility(View.VISIBLE);
-    }
-
-    public void stopAnimation(){
-        allowBackPress = true;
-        mLoaderAnimation.pauseAnimation();
-        mPageLevelLoaderView.setVisibility(View.GONE);
     }
 
 
@@ -88,5 +63,26 @@ public class DashboardActivity extends AppCompatActivity implements DashboardIte
     @Override
     public void stopLoader() {
         stopAnimation();
+    }
+
+    public void startAnimation(){
+        allowBackPress = false;
+        mLoaderAnimation.playAnimation();
+        mPageLevelLoaderView.setVisibility(View.VISIBLE);
+    }
+
+    public void stopAnimation(){
+        allowBackPress = true;
+        mLoaderAnimation.pauseAnimation();
+        mPageLevelLoaderView.setVisibility(View.GONE);
+    }
+
+    protected void setUpLoaderViews() {
+        if (mPageLevelLoaderView == null || mLoaderAnimation == null) {
+            mPageLevelLoaderView = findViewById(R.id.page_level_loader_view);
+            if (mPageLevelLoaderView != null)
+                mPageLevelLoadingTextView = mPageLevelLoaderView.findViewById(R.id.loading_text_view);
+            mLoaderAnimation = findViewById(R.id.page_level_progress_bar);
+        }
     }
 }

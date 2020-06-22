@@ -6,15 +6,15 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.vyapaar.ui.main.admin.OTPViewModel" />
+            type="com.example.vyapaar.login.main.admin.OTPViewModel" />
 
         <variable
             name="callback"
-            type="com.example.vyapaar.ui.contract.OTPContract" />
+            type="com.example.vyapaar.login.contract.OTPContract" />
 
         <variable
             name="clickListener"
-            type="com.example.vyapaar.ui.main.admin.OTPFragment.VerifyButtonListener" />
+            type="com.example.vyapaar.login.main.admin.OTPFragment.VerifyButtonListener" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="wrap_content"
@@ -22,7 +22,7 @@
     android:layout_gravity="center"
     android:padding="24dp"
     android:background="#ECF0F1"
-    tools:context=".ui.main.admin.OTPFragment">
+    tools:context=".login.main.admin.OTPFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/otp_verification"

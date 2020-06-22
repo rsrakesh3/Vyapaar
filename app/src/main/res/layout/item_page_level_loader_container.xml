@@ -10,17 +10,20 @@
         android:clickable="true"
         android:focusable="true"
         tools:visibility="visible"
-        android:alpha="0.7"
+        android:alpha="0.5"
         android:visibility="gone">
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/loading_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="Loading"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toTopOf="@+id/page_level_progress_bar"
             app:layout_constraintEnd_toEndOf="@+id/page_level_progress_bar"
-            app:layout_constraintStart_toStartOf="@+id/page_level_progress_bar" />
+            app:layout_constraintStart_toStartOf="@+id/page_level_progress_bar"
+            tools:text="Loading" />
 
         <com.airbnb.lottie.LottieAnimationView android:id="@+id/page_level_progress_bar"
             android:layout_width="wrap_content"

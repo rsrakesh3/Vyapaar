@@ -1,4 +1,4 @@
-package com.example.vyapaar.ui.network;
+package com.example.vyapaar.login.network;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 

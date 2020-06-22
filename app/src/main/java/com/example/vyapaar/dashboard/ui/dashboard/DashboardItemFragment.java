@@ -3,7 +3,6 @@ package com.example.vyapaar.dashboard.ui.dashboard;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
@@ -22,11 +21,7 @@ import com.example.vyapaar.R;
 import com.example.vyapaar.dashboard.adapter.DashboardItemRecyclerViewAdapter;
 import com.example.vyapaar.dashboard.contract.BaseContract;
 import com.example.vyapaar.dashboard.model.DashboardResponse;
-import com.example.vyapaar.dashboard.ui.dashboard.dummy.DummyContent;
-import com.example.vyapaar.dashboard.ui.dashboard.dummy.DummyContent.DummyItem;
 import com.example.vyapaar.databinding.FragmentDashboardItemListBinding;
-import com.example.vyapaar.ui.contract.LoginContract;
-import com.example.vyapaar.ui.main.admin.AdminRegistrationViewModel;
 
 import java.util.List;
 

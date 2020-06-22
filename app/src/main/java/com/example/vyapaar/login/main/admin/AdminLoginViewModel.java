@@ -1,4 +1,4 @@
-package com.example.vyapaar.ui.main.admin;
+package com.example.vyapaar.login.main.admin;
 
 import androidx.lifecycle.ViewModel;
 

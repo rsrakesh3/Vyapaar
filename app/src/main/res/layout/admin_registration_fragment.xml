@@ -8,10 +8,10 @@
 
         <variable
             name="viewModel"
-            type="com.example.vyapaar.ui.main.admin.AdminRegistrationViewModel" />
+            type="com.example.vyapaar.login.main.admin.AdminRegistrationViewModel" />
         <variable
             name="callback"
-            type="com.example.vyapaar.ui.contract.RegistrationContract" />
+            type="com.example.vyapaar.login.contract.RegistrationContract" />
 
     </data>
 
@@ -20,7 +20,7 @@
         android:layout_margin="@dimen/parent_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.admin.AdminRegistrationFragment">
+        tools:context=".login.main.admin.AdminRegistrationFragment">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_header"
@@ -32,7 +32,7 @@
             android:text="@string/registration_header"/>
 
 
-        <com.example.vyapaar.ui.views.CustomEditText
+        <com.example.vyapaar.login.views.CustomEditText
             android:id="@+id/edittext_name"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -46,7 +46,7 @@
             android:layout_marginTop="@dimen/registration_top_margin"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <com.example.vyapaar.ui.views.CustomEditText
+        <com.example.vyapaar.login.views.CustomEditText
             android:id="@+id/edittext_email"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -60,7 +60,7 @@
             android:layout_marginTop="@dimen/registration_top_margin"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <com.example.vyapaar.ui.views.CustomEditText
+        <com.example.vyapaar.login.views.CustomEditText
             android:id="@+id/edittext_phone"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -75,7 +75,7 @@
             android:layout_marginTop="@dimen/registration_top_margin"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <com.example.vyapaar.ui.views.CustomEditText
+        <com.example.vyapaar.login.views.CustomEditText
             android:id="@+id/editext_password"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -90,7 +90,7 @@
             android:layout_marginTop="@dimen/registration_top_margin"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <com.example.vyapaar.ui.views.CustomEditText
+        <com.example.vyapaar.login.views.CustomEditText
             android:id="@+id/editext_reenter_password"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -104,7 +104,7 @@
             android:layout_marginTop="@dimen/registration_top_margin"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <com.example.vyapaar.ui.views.CustomEditText
+        <com.example.vyapaar.login.views.CustomEditText
             android:id="@+id/edittext_datepicker"
             android:layout_width="match_parent"
             android:layout_height="40dp"

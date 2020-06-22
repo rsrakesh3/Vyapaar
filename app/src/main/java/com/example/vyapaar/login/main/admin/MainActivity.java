@@ -1,27 +1,38 @@
-package com.example.vyapaar.ui.main.admin;
+package com.example.vyapaar.login.main.admin;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.DatePicker;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.vyapaar.R;
-import com.example.vyapaar.ui.contract.LoginContract;
-import com.example.vyapaar.ui.contract.RegistrationContract;
+import com.example.vyapaar.common.BaseActivity;
+import com.example.vyapaar.login.contract.LoginContract;
+import com.example.vyapaar.login.contract.RegistrationContract;
+import com.example.vyapaar.login.model.RegistrationResponse;
 
 import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
-public class MainActivity extends AppCompatActivity implements RegistrationContract, LoginContract {
+public class MainActivity extends BaseActivity implements RegistrationContract, LoginContract {
     final Calendar myCalendar = Calendar.getInstance();
     private AdminRegistrationFragment adminRegistrationFragment;
     private AdminLoginFragment adminLoginFragment;
+    private LottieAnimationView mLoaderAnimation;
+    private View mPageLevelLoaderView;
+    private AppCompatTextView mPageLevelLoadingTextView;
+    private boolean allowBackPress = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+        mLoaderAnimation = findViewById(R.id.page_level_progress_bar);
+        setUpLoaderViews();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, AdminRegistrationFragment.newInstance())
@@ -56,6 +67,23 @@ public class MainActivity extends AppCompatActivity implements RegistrationContr
                 .commit();
     }
 
+    @Override
+    public void launchOTPFragment(RegistrationResponse registrationResponse) {
+        OTPFragment otpFragment = OTPFragment.newInstance(registrationResponse);
+        otpFragment.setCancelable(false);
+        otpFragment.show(getSupportFragmentManager(), "otp_dialog");
+    }
+
+    @Override
+    public void showLoader() {
+        startAnimation();
+    }
+
+    @Override
+    public void hideLoader() {
+        stopAnimation();
+    }
+
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -77,5 +105,26 @@ public class MainActivity extends AppCompatActivity implements RegistrationContr
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, AdminRegistrationFragment.newInstance())
                 .commitNow();
+    }
+
+    public void startAnimation(){
+        allowBackPress = false;
+        mLoaderAnimation.playAnimation();
+        mPageLevelLoaderView.setVisibility(View.VISIBLE);
+    }
+
+    public void stopAnimation(){
+        allowBackPress = true;
+        mLoaderAnimation.pauseAnimation();
+        mPageLevelLoaderView.setVisibility(View.GONE);
+    }
+
+    protected void setUpLoaderViews() {
+        if (mPageLevelLoaderView == null || mLoaderAnimation == null) {
+            mPageLevelLoaderView = findViewById(R.id.page_level_loader_view);
+            if (mPageLevelLoaderView != null)
+                mPageLevelLoadingTextView = mPageLevelLoaderView.findViewById(R.id.loading_text_view);
+            mLoaderAnimation = findViewById(R.id.page_level_progress_bar);
+        }
     }
 }
