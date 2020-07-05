@@ -42,6 +42,7 @@ public class OTPViewModel extends ViewModel {
             @Override
             public void onError(Throwable e) {
                 isLoaderShown.set(false);
+                mutableLiveData.setValue(null);
             }
 
             @Override

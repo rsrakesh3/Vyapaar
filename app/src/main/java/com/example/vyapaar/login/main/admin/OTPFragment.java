@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,18 +67,6 @@ public class OTPFragment extends AppCompatDialogFragment implements OTPContract 
         return binding.getRoot();
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mViewModel.mutableLiveData.observe(getViewLifecycleOwner(), new Observer<OTPResponse>() {
-            @Override
-            public void onChanged(OTPResponse otpResponse) {
-                Toast.makeText(mContext, "Success", Toast.LENGTH_LONG).show();
-                startActivity(new Intent((MainActivity)mContext, DashboardActivity.class));
-            }
-        });
-    }
-
     private void initView(View view) {
         editText1 = view.findViewById(R.id.edittext1);
         editText1.requestFocus();
@@ -94,7 +84,18 @@ public class OTPFragment extends AppCompatDialogFragment implements OTPContract 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(OTPViewModel.class);
+        mViewModel.mutableLiveData.observe(getViewLifecycleOwner(), new Observer<OTPResponse>() {
+            @Override
+            public void onChanged(OTPResponse otpResponse) {
 
+                if(otpResponse!=null && !TextUtils.isEmpty(otpResponse.getMessage())) {
+                    Toast.makeText(mContext, "Success", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent((MainActivity) mContext, DashboardActivity.class));
+                }else if(otpResponse==null){
+                    Toast.makeText(mContext,"Incorrect OTP",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     public String getOTP(){
