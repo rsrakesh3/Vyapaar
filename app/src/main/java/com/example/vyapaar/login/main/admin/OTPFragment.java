@@ -3,6 +3,7 @@ package com.example.vyapaar.login.main.admin;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
@@ -27,6 +28,7 @@ import com.example.vyapaar.R;
 import com.example.vyapaar.dashboard.DashboardActivity;
 import com.example.vyapaar.databinding.OtpFragmentBinding;
 import com.example.vyapaar.login.contract.OTPContract;
+import com.example.vyapaar.login.model.OTPResponse;
 import com.example.vyapaar.login.model.RegistrationResponse;
 
 public class OTPFragment extends AppCompatDialogFragment implements OTPContract {
@@ -54,14 +56,25 @@ public class OTPFragment extends AppCompatDialogFragment implements OTPContract 
         binding.setClickListener(new VerifyButtonListener() {
             @Override
             public void onVerifyClick() {
-                if(getOTP().equalsIgnoreCase("1234")) {
-                    Toast.makeText(mContext, "Success", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent((MainActivity)mContext, DashboardActivity.class));
+                if(getOTP()!=null){
+                    mViewModel.postOTPData(getOTP());
                 }
             }
         });
         initView(view);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mViewModel.mutableLiveData.observe(getViewLifecycleOwner(), new Observer<OTPResponse>() {
+            @Override
+            public void onChanged(OTPResponse otpResponse) {
+                Toast.makeText(mContext, "Success", Toast.LENGTH_LONG).show();
+                startActivity(new Intent((MainActivity)mContext, DashboardActivity.class));
+            }
+        });
     }
 
     private void initView(View view) {
