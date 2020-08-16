@@ -1,13 +1,17 @@
 package com.example.vyapaar.login.main.admin;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.vyapaar.R;
 import com.example.vyapaar.common.BaseActivity;
+import com.example.vyapaar.dashboard.ui.NewDashboardActivity;
 import com.example.vyapaar.login.contract.LoginContract;
 import com.example.vyapaar.login.contract.RegistrationContract;
 import com.example.vyapaar.login.model.RegistrationResponse;
@@ -61,10 +65,17 @@ public class MainActivity extends BaseActivity implements RegistrationContract, 
     }
 
     @Override
+    public void openTimePicker() {
+        new TimePickerDialog(MainActivity.this, timeSetListener,
+                myCalendar.get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE), true).show();
+    }
+
+    @Override
     public void launchLoginFragment() {
-        getSupportFragmentManager().beginTransaction()
+        /*getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, AdminLoginFragment.newInstance())
-                .commit();
+                .commit();*/
+        startActivity(new Intent(this, NewDashboardActivity.class));
     }
 
     @Override
@@ -89,7 +100,6 @@ public class MainActivity extends BaseActivity implements RegistrationContract, 
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -98,6 +108,17 @@ public class MainActivity extends BaseActivity implements RegistrationContract, 
             }
         }
 
+    };
+
+    TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            myCalendar.set(Calendar.MINUTE, minute);
+            if(adminRegistrationFragment!=null && adminRegistrationFragment.getmViewModel()!=null){
+                adminRegistrationFragment.getmViewModel().updateTimeLabel(myCalendar);
+            }
+        }
     };
 
     @Override

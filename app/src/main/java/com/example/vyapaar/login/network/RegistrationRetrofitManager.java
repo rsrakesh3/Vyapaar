@@ -1,6 +1,7 @@
 package com.example.vyapaar.login.network;
 
 
+import com.example.vyapaar.login.model.GeoDetails;
 import com.example.vyapaar.login.model.OTPResponse;
 import com.example.vyapaar.login.model.RegistrationRequest;
 import com.example.vyapaar.login.model.RegistrationResponse;
@@ -39,6 +40,32 @@ public class RegistrationRetrofitManager extends RetrofitManager {
         responseObservable = registrationServiceInterface.validateOTP(body);
         responseObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(registrationResponseSubscriber);
+        return responseObservable;
+    }
+
+    public static Observable<OTPResponse> postUserDetails(String otp, DisposableObserver<OTPResponse> registrationResponseSubscriber) {
+
+        RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("data",otp).build();
+        Observable<OTPResponse> responseObservable = null;
+        RegistrationServiceInterface registrationServiceInterface = RetrofitManager.getRetrofitInstance().
+                create(RegistrationServiceInterface.class);
+        responseObservable = registrationServiceInterface.validateOTP(body);
+        responseObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(registrationResponseSubscriber);
+        return responseObservable;
+    }
+
+    public static Observable<GeoDetails> getLatLong(String city, DisposableObserver<GeoDetails> geoDetailsDisposableObserver) {
+
+        RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("data",city).build();
+        Observable<GeoDetails> responseObservable = null;
+        RegistrationServiceInterface registrationServiceInterface = RetrofitManager.getRetrofitInstance().
+                create(RegistrationServiceInterface.class);
+        responseObservable = registrationServiceInterface.getLatLong(body);
+        responseObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(geoDetailsDisposableObserver);
         return responseObservable;
     }
 

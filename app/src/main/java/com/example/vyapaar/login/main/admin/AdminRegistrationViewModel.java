@@ -1,24 +1,36 @@
 package com.example.vyapaar.login.main.admin;
 
+import android.app.Application;
+
 import com.example.vyapaar.BR;
+import com.example.vyapaar.common.CommonUtil;
+import com.example.vyapaar.common.model.State;
+import com.example.vyapaar.common.model.StateList;
 import com.example.vyapaar.login.model.RegistrationRequest;
 import com.example.vyapaar.login.model.RegistrationResponse;
 import com.example.vyapaar.login.network.RegistrationRetrofitManager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.ServiceLoader;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.Bindable;
+import androidx.databinding.BindingAdapter;
 import androidx.databinding.Observable;
+import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.observers.DisposableObserver;
 
-public class AdminRegistrationViewModel extends ViewModel implements Observable {
+public class AdminRegistrationViewModel extends AndroidViewModel implements Observable {
     public ObservableField<String> date = new ObservableField<>("");
+    public ObservableField<String> time = new ObservableField<>("");
     public ObservableField<String> name = new ObservableField<>("");
     public ObservableField<String> email = new ObservableField<>("");
     public ObservableField<String> phNo = new ObservableField<>("");
@@ -26,6 +38,17 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
     private DisposableObserver<RegistrationResponse> registrationResponseSubscriber;
     public MutableLiveData<RegistrationResponse> mutableLiveData = new MutableLiveData<RegistrationResponse>();
     public ObservableBoolean isLoaderShown = new ObservableBoolean(false);
+    @Bindable
+    public ObservableArrayList<State> entries = new ObservableArrayList<>();
+    private Application application;
+    private StateList stateLists;
+
+    public AdminRegistrationViewModel(@NonNull Application application) {
+        super(application);
+        this.application = application;
+        stateLists = CommonUtil.getStateList(application);
+        entries.addAll(stateLists.getStates());
+    }
 
 
     public void updateLabel(Calendar myCalendar) {
@@ -120,6 +143,16 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
         this.date.notifyPropertyChanged(BR.dateOfBirth);
     }
 
+    @Bindable
+    public String getTimeOfBirth(){
+        return time.get();
+    }
+
+    public void setTimeOfBirth(String timeOfBirth){
+        this.time.set(timeOfBirth);
+        this.time.notifyPropertyChanged(BR.timeOfBirth);
+    }
+
 
     @Override
     public void addOnPropertyChangedCallback(OnPropertyChangedCallback callback) {
@@ -128,6 +161,7 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
         email.addOnPropertyChangedCallback(propertyChangedCallback);
         phNo.addOnPropertyChangedCallback(propertyChangedCallback);
         date.addOnPropertyChangedCallback(propertyChangedCallback);
+        time.addOnPropertyChangedCallback(propertyChangedCallback);
     }
 
     @Override
@@ -137,6 +171,7 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
         email.removeOnPropertyChangedCallback(propertyChangedCallback);
         phNo.removeOnPropertyChangedCallback(propertyChangedCallback);
         date.removeOnPropertyChangedCallback(propertyChangedCallback);
+        time.removeOnPropertyChangedCallback(propertyChangedCallback);
 
     }
 
@@ -149,5 +184,16 @@ public class AdminRegistrationViewModel extends ViewModel implements Observable 
     public void unsubscribe(){
         registrationResponseSubscriber.dispose();
     }
+
+    public void updateTimeLabel(Calendar myCalendar) {
+        String myFormat = "hh:mm aa"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        time.set(sdf.format(myCalendar.getTime()));
+    }
+
+   /* @BindingAdapter("entries")
+    public void setEntries(){
+
+    }*/
 
 }

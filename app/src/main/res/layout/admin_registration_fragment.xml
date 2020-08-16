@@ -2,6 +2,7 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:customComp="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -12,6 +13,10 @@
         <variable
             name="callback"
             type="com.example.vyapaar.login.contract.RegistrationContract" />
+
+        <variable
+            name="adapter"
+            type="com.example.vyapaar.login.adapter.StateListAdapter" />
 
     </data>
 
@@ -104,6 +109,35 @@
             android:layout_marginTop="@dimen/registration_top_margin"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/enter_state"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:background="@drawable/edittext_background"
+            android:inputType="textPassword"
+            android:hint="@string/location_hint"
+            android:drawableEnd="@drawable/ic_lock"
+            app:layout_constraintTop_toBottomOf="@id/editext_reenter_password"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/registration_top_margin"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/enter_district"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:background="@drawable/edittext_background"
+            android:inputType="textPassword"
+            android:hint="@string/location_hint"
+            android:drawableEnd="@drawable/ic_lock"
+            android:clickable="false"
+            app:layout_constraintTop_toBottomOf="@id/enter_state"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/registration_top_margin"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
         <com.example.vyapaar.login.views.CustomEditText
             android:id="@+id/edittext_datepicker"
             android:layout_width="match_parent"
@@ -116,7 +150,24 @@
             android:drawableEnd="@drawable/ic_calendar"
             android:clickable="true"
             android:onClick="@{() -> callback.openDatePicker()}"
-            app:layout_constraintTop_toBottomOf="@id/editext_reenter_password"
+            app:layout_constraintTop_toBottomOf="@+id/enter_district"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/registration_top_margin"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.example.vyapaar.login.views.CustomEditText
+            android:id="@+id/edittext_timepicker"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:focusable="false"
+            android:background="@drawable/edittext_background"
+            android:hint="@string/time_hint"
+            android:text="@={viewModel.time}"
+            android:drawableEnd="@drawable/ic_time"
+            android:clickable="true"
+            android:onClick="@{() -> callback.openTimePicker()}"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_datepicker"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="@dimen/registration_top_margin"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -125,7 +176,7 @@
             android:id="@+id/checkbox_terms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/edittext_datepicker"
+            app:layout_constraintTop_toBottomOf="@id/edittext_timepicker"
             app:layout_constraintStart_toStartOf="parent"
             android:text="@string/string_terms"
             android:layout_marginTop="@dimen/registration_top_margin"/>

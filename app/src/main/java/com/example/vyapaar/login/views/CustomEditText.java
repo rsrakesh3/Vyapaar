@@ -26,4 +26,11 @@ public class CustomEditText extends androidx.appcompat.widget.AppCompatEditText 
         editText.addTextChangedListener(textWatcher);
     }
 
+    public static void setOnFocusChangeListener(CustomEditText thisView, OnFocusChangeListener listener){
+
+    }
+
+
+
+
 }

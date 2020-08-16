@@ -90,7 +90,8 @@ public class OTPFragment extends AppCompatDialogFragment implements OTPContract 
 
                 if(otpResponse!=null && !TextUtils.isEmpty(otpResponse.getMessage())) {
                     Toast.makeText(mContext, "Success", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent((MainActivity) mContext, DashboardActivity.class));
+                    ((MainActivity) mContext).launchLoginFragment();
+//                    startActivity(new Intent((MainActivity) mContext, DashboardActivity.class));
                 }else if(otpResponse==null){
                     Toast.makeText(mContext,"Incorrect OTP",Toast.LENGTH_LONG).show();
                 }

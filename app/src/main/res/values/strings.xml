@@ -6,7 +6,9 @@
     <string name="phone_hint">Phone</string>
     <string name="password_hint">Password</string>
     <string name="re_password_hint">Retype Password</string>
+    <string name="location_hint">Location</string>
     <string name="dob_hint">DOB:</string>
+    <string name="time_hint">Time of birth</string>
     <string name="string_terms">I agree to the terms</string>
     <string name="membership_text">I already have a membership</string>
     <string name="submit">Submit</string>
@@ -21,4 +23,8 @@
     <string name="enter_otp">Enter the code that was sent to %s</string>
     <string name="verify_otp">Verify</string>
     <string name="otp_verification">Verification Code</string>
+    <string name="title_activity_new_dashboard">NewDashboardActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

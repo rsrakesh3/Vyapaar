@@ -16,10 +16,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 
 import com.example.vyapaar.R;
+import com.example.vyapaar.common.CommonUtil;
 import com.example.vyapaar.databinding.AdminRegistrationFragmentBinding;
+import com.example.vyapaar.login.adapter.DistrictListAdapter;
+import com.example.vyapaar.login.adapter.StateListAdapter;
 import com.example.vyapaar.login.contract.RegistrationContract;
 import com.example.vyapaar.login.model.RegistrationResponse;
 
@@ -69,6 +73,21 @@ public class AdminRegistrationFragment extends Fragment {
             }
         });
         AdminRegistrationFragmentBinding binding = DataBindingUtil.bind(view);
+        StateListAdapter adapter = new StateListAdapter(mContext,CommonUtil.getStateList(mContext));
+        binding.enterState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                DistrictListAdapter adapter = new DistrictListAdapter(mContext,CommonUtil.getStateList(mContext).getStates().get(position));
+                binding.enterDistrict.setClickable(true);
+                binding.enterDistrict.setAdapter(adapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        binding.enterState.setAdapter(adapter);
         binding.setViewModel(mViewModel);
         binding.setCallback(callback);
         return view;
@@ -89,21 +108,6 @@ public class AdminRegistrationFragment extends Fragment {
     public AdminRegistrationViewModel getmViewModel(){
             return mViewModel;
     }
-
-    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            // TODO Auto-generated method stub
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, monthOfYear);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            mViewModel.updateLabel(myCalendar);
-        }
-
-    };
-
 
     @Override
     public void onDestroy() {
